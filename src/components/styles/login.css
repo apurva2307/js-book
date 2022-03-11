@@ -1,0 +1,27 @@
+.alert {
+  margin-top: 3rem;
+}
+h4 {
+  text-align: center;
+}
+p {
+  margin: 0;
+  text-align: center;
+}
+.btn {
+  margin-bottom: 1.5rem;
+}
+.register-link,
+.reset-link {
+  display: inline-block;
+  margin-left: 0.25rem;
+  text-transform: capitalize;
+  color: var(--primary-500);
+  cursor: pointer;
+}
+.reset-link {
+  margin-top: 0.25rem;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}

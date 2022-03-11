@@ -1,0 +1,26 @@
+.add-shell {
+  position: relative;
+  display: flex;
+  flex-direction: "row";
+  justify-content: center;
+  opacity: 0.05;
+  transition: opacity 0.3s ease-in 0.1s;
+  margin: 8px 0;
+}
+.add-shell:hover {
+  opacity: 1;
+}
+.force-visible {
+  opacity: 1;
+}
+.add-shell button {
+  margin: 0px 40px;
+}
+.add-shell .divider {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  border-bottom: 1px solid gray;
+  width: 95%;
+  z-index: -1;
+}
