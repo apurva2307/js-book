@@ -11,7 +11,7 @@ interface User {
   email: string;
   userId: string;
 }
-const baseUrl = "https://common-api.apurvasingh.dev/api/v1";
+const baseUrl = "http://localhost:3001/api/v1";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -26,10 +26,17 @@ function App() {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get(`${baseUrl}/users/showMe`);
-      console.log("fetchuser>", data);
+      const token = localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.get(`${baseUrl}/users/showMe`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("fetchuser>", data);
 
-      saveUser(data.user);
+        saveUser(data.user);
+      }
     } catch (error) {
       removeUser();
     }
@@ -39,6 +46,7 @@ function App() {
   const logoutUser = async () => {
     try {
       await axios.get(`${baseUrl}/auth/logout`);
+      localStorage.removeItem("token");
       removeUser();
     } catch (error) {
       console.log(error);

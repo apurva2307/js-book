@@ -16,7 +16,6 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     email: "",
     password: "",
   });
-  console.log({ user });
   const { alert, showAlert, loading, setLoading, hideAlert } = useLocalState();
 
   const handleChange = (e: Event) => {
@@ -31,10 +30,10 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     const loginUser = { email, password };
     try {
       const { data } = await axios.post(
-        `https://common-api.apurvasingh.dev/api/v1/auth/login`,
+        "http://localhost:3001/api/v1/auth/login",
         loginUser
       );
-      console.log({ data });
+      localStorage.setItem("token", data.token);
       setValues({ email: "", password: "" });
       showAlert({
         text: `Welcome, ${data.user.name}. Redirecting to dashboard...`,
@@ -44,7 +43,7 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
       saveUser(data.user);
       history.push("/dashboard");
     } catch (error: any) {
-      showAlert({ text: error.response.data.msg });
+      // showAlert({ text: error.response.data.msg });
       setLoading(false);
     }
   };
