@@ -30,7 +30,7 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     const loginUser = { email, password };
     try {
       const { data } = await axios.post(`${baseUrl}/auth/login`, loginUser);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("jsbook_token", data.token);
       setValues({ email: "", password: "" });
       showAlert({
         text: `Welcome, ${data.user.name}. Redirecting to dashboard...`,

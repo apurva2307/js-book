@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../baseUrl";
 interface HomeProps {
   user: { email: string; userId: string } | null;
@@ -33,7 +33,6 @@ const Home: React.FC<HomeProps> = ({ user }) => {
   }, []);
   return (
     <div>
-      {!user && <Redirect to="/login"></Redirect>}
       <div>
         {files.map((filename) => {
           return (

@@ -1,5 +1,6 @@
 import "bulmaswatch/superhero/bulmaswatch.min.css";
 import { Provider } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { store } from "./redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -27,7 +28,7 @@ function App() {
 
   const fetchUser = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("jsbook_token");
       if (token) {
         const { data } = await axios.get(`${baseUrl}/users/showMe`, {
           headers: {
@@ -45,7 +46,7 @@ function App() {
   // const logoutUser = async () => {
   //   try {
   //     await axios.get(`${baseUrl}/auth/logout`);
-  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("jsbook_token");
   //     removeUser();
   //   } catch (error) {
   //     console.log(error);
@@ -62,13 +63,15 @@ function App() {
       <div>
         <Router>
           <Switch>
-            <Route path="/" exact>
-              <Home user={user} />
-            </Route>
             <Route path="/login" exact>
               <Login saveUser={saveUser} user={user} />
             </Route>
+            <Route path="/" exact>
+              {!user && <Redirect to="/login"></Redirect>}
+              <Home user={user} />
+            </Route>
             <Route path="/editor/:filename" exact>
+              {!user && <Redirect to="/login"></Redirect>}
               <ShellList />
             </Route>
             <Route path="*">
