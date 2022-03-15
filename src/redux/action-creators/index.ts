@@ -12,6 +12,7 @@ import {
 } from "../actions";
 import { ShellType, Shell } from "../shell";
 import { RootState } from "../reducers";
+import { baseUrl } from "../../baseUrl";
 
 export const updateShell = (id: string, content: string): UpdateShellAction => {
   return {
@@ -66,8 +67,10 @@ export const fetchShells = (filename: string) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.FETCH_SHELLS });
     try {
+      const token = localStorage.getItem("token");
       const { data }: { data: any } = await axios.get(
-        `https://common-api.apurvasingh.dev/api/v1/shells/${filename}`
+        `${baseUrl}/shells/${filename}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log(data.shell.shells);
 
@@ -94,10 +97,19 @@ export const saveShells = (filename: string) => {
       });
     }
     try {
-      await axios.post("https://common-api.apurvasingh.dev/api/v1/shells", {
-        shells: fetchedShells,
-        name: filename,
-      });
+      const token = localStorage.getItem("token");
+      await axios.post(
+        `${baseUrl}/shells`,
+        {
+          shells: fetchedShells,
+          name: filename,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } catch (error: any) {
       dispatch({ type: ActionType.SAVE_SHELLS_ERROR, payload: error.message });
     }

@@ -6,12 +6,13 @@ import axios from "axios";
 import ShellList from "./components/shell-list";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/login";
+import Home from "./components/home";
+import { baseUrl } from "./baseUrl";
 
 interface User {
   email: string;
   userId: string;
 }
-const baseUrl = "http://localhost:3001/api/v1";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -33,8 +34,6 @@ function App() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("fetchuser>", data);
-
         saveUser(data.user);
       }
     } catch (error) {
@@ -43,37 +42,42 @@ function App() {
     setIsLoading(false);
   };
 
-  const logoutUser = async () => {
-    try {
-      await axios.get(`${baseUrl}/auth/logout`);
-      localStorage.removeItem("token");
-      removeUser();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const logoutUser = async () => {
+  //   try {
+  //     await axios.get(`${baseUrl}/auth/logout`);
+  //     localStorage.removeItem("token");
+  //     removeUser();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchUser();
+    // eslint-disable-next-line
   }, []);
+
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <h1>HI hello</h1>
-          </Route>
-          <Route path="/login" exact>
-            <Login saveUser={saveUser} user={user} />
-          </Route>
-          <Route path="/editor/:filename" exact>
-            <ShellList />
-          </Route>
-          <Route path="*">
-            <h1>hi</h1>
-          </Route>
-        </Switch>
-      </Router>
+      <div>
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <Home user={user} />
+            </Route>
+            <Route path="/login" exact>
+              <Login saveUser={saveUser} user={user} />
+            </Route>
+            <Route path="/editor/:filename" exact>
+              <ShellList />
+            </Route>
+            <Route path="*">
+              <h1>hi</h1>
+            </Route>
+          </Switch>
+          {isLoading && <h2>isLoading....</h2>}
+        </Router>
+      </div>
     </Provider>
   );
 }

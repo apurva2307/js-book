@@ -1,10 +1,10 @@
 import "./styles/login.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import FormRow from "../components/form-row";
 import useLocalState from "../hooks/use-local-state";
-
 import axios from "axios";
+import { baseUrl } from "../baseUrl";
 interface LoginProps {
   saveUser: (user: { email: string; userId: string }) => void;
   user: { email: string; userId: string } | null;
@@ -29,10 +29,7 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     const { email, password } = values;
     const loginUser = { email, password };
     try {
-      const { data } = await axios.post(
-        "http://localhost:3001/api/v1/auth/login",
-        loginUser
-      );
+      const { data } = await axios.post(`${baseUrl}/auth/login`, loginUser);
       localStorage.setItem("token", data.token);
       setValues({ email: "", password: "" });
       showAlert({
@@ -41,7 +38,7 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
       });
       setLoading(false);
       saveUser(data.user);
-      history.push("/dashboard");
+      history.push("/");
     } catch (error: any) {
       // showAlert({ text: error.response.data.msg });
       setLoading(false);
