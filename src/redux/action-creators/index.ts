@@ -67,7 +67,7 @@ export const fetchShells = (filename: string) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.FETCH_SHELLS });
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("jsbook_token");
       const { data }: { data: any } = await axios.get(
         `${baseUrl}/shells/${filename}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -97,7 +97,7 @@ export const saveShells = (filename: string) => {
       });
     }
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("jsbook_token");
       await axios.post(
         `${baseUrl}/shells`,
         {
