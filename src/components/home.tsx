@@ -9,7 +9,7 @@ const Home: React.FC<HomeProps> = ({ user }) => {
   const [files, setFiles] = useState([]);
   const fetchFiles = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("jsbook_token");
       if (token) {
         const { data } = await axios.get(`${baseUrl}/shells`, {
           headers: {
