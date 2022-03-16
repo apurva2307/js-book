@@ -1,10 +1,11 @@
 import "./styles/login.css";
 import { useState } from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import FormRow from "../components/form-row";
 import useLocalState from "../hooks/use-local-state";
 import axios from "axios";
-import { baseUrl } from "../baseUrl";
+import { useLastLocation } from 'react-router-last-location';
+
 interface LoginProps {
   saveUser: (user: { email: string; userId: string }) => void;
   user: { email: string; userId: string } | null;
@@ -12,6 +13,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
   // @ts-ignore
   const history = useHistory();
+  const lastLocation = useLastLocation()
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -29,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     const { email, password } = values;
     const loginUser = { email, password };
     try {
-      const { data } = await axios.post(`${baseUrl}/auth/login`, loginUser);
+      const { data } = await axios.post("/auth/login", loginUser);
       localStorage.setItem("jsbook_token", data.token);
       setValues({ email: "", password: "" });
       showAlert({
@@ -44,10 +46,12 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
       setLoading(false);
     }
   };
-
+  if (user) {
+    // @ts-ignore
+    history.push(lastLocation)
+  }
   return (
     <>
-      {user && <Redirect to="/"></Redirect>}
       <section className="page">
         {alert.show && (
           <div className={`alert alert-${alert.type}`}>{alert.text}</div>

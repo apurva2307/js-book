@@ -12,7 +12,6 @@ import {
 } from "../actions";
 import { ShellType, Shell } from "../shell";
 import { RootState } from "../reducers";
-import { baseUrl } from "../../baseUrl";
 
 export const updateShell = (id: string, content: string): UpdateShellAction => {
   return {
@@ -69,7 +68,7 @@ export const fetchShells = (filename: string) => {
     try {
       const token = localStorage.getItem("jsbook_token");
       const { data }: { data: any } = await axios.get(
-        `${baseUrl}/shells/${filename}`,
+        `/shells/${filename}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log(data.shell.shells);
@@ -99,7 +98,7 @@ export const saveShells = (filename: string) => {
     try {
       const token = localStorage.getItem("jsbook_token");
       await axios.post(
-        `${baseUrl}/shells`,
+        "/shells",
         {
           shells: fetchedShells,
           name: filename,

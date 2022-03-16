@@ -1,17 +1,14 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { baseUrl } from "../baseUrl";
-interface HomeProps {
-  user: { email: string; userId: string } | null;
-}
-const Home: React.FC<HomeProps> = ({ user }) => {
+
+const Home = () => {
   const [files, setFiles] = useState([]);
   const fetchFiles = async () => {
     try {
       const token = localStorage.getItem("jsbook_token");
       if (token) {
-        const { data } = await axios.get(`${baseUrl}/shells`, {
+        const { data } = await axios.get("/shells", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,11 +29,11 @@ const Home: React.FC<HomeProps> = ({ user }) => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div>
+    <div className="container is-fluid">
       <div>
         {files.map((filename) => {
           return (
-            <h3>
+            <h3 key={filename}>
               <Link to={`/editor/${filename}`}>{filename}</Link>
             </h3>
           );

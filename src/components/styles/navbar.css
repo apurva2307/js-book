@@ -1,0 +1,10 @@
+.buttons {
+  transition: opacity 0.3s ease-in 0.1s;
+  opacity: 0.1;
+}
+.buttons:hover {
+  opacity: 1;
+}
+.user {
+  margin-right: 15px;
+}

@@ -10,7 +10,6 @@ const ShellList: React.FC = () => {
   const { fetchShells } = useActions();
   // @ts-ignore
   const { filename } = useParams();
-  console.log(filename);
   const shells = useTypedSelector(({ shells }) => {
     if (shells) {
       const { order, data } = shells;
