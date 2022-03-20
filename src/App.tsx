@@ -1,4 +1,5 @@
 import "bulmaswatch/superhero/bulmaswatch.min.css";
+import "./app.css"
 import { Provider } from "react-redux";
 import { store } from "./redux";
 import { useState, useEffect } from "react";
@@ -58,7 +59,7 @@ function App() {
   };
 
   useEffect( () => {
-    fetchUser();
+      fetchUser();
     // eslint-disable-next-line
   }, []);
   
@@ -75,7 +76,7 @@ function App() {
             <AuthRoute exact path="/editor/:filename" user={user} component={ShellList} />
             <AuthRoute exact path="/" user={user} component={Home} />
             <Route path="*">
-              <h1>hi</h1>
+              <h1>No page found.</h1>
             </Route>
           </Switch>
           {isLoading && <h2>isLoading....</h2>}

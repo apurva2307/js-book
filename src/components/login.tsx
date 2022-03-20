@@ -1,6 +1,6 @@
 import "./styles/login.css";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FormRow from "../components/form-row";
 import useLocalState from "../hooks/use-local-state";
 import axios from "axios";
@@ -12,8 +12,8 @@ interface LoginProps {
 }
 const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
   // @ts-ignore
-  const history = useHistory();
   const lastLocation = useLastLocation()
+  console.log(lastLocation)
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -39,17 +39,19 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
         type: "success",
       });
       setLoading(false);
+      console.log(data)
       saveUser(data.user);
-      history.push("/");
+      window.location.href = "/"
     } catch (error: any) {
-      // showAlert({ text: error.response.data.msg });
+      showAlert({ text: error.response.data.msg });
       setLoading(false);
     }
   };
   if (user) {
     // @ts-ignore
-    history.push(lastLocation)
+    window.location.href = lastLocation.pathname
   }
+  // console.log(user)
   return (
     <>
       <section className="page">
@@ -61,35 +63,25 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
           // @ts-ignore
           onSubmit={onSubmit}
         >
-          {/* single form row */}
           <FormRow
             type="email"
             name="email"
             value={values.email}
             handleChange={handleChange}
           />
-          {/* end of single form row */}
-          {/* single form row */}
           <FormRow
             type="password"
             name="password"
             value={values.password}
             handleChange={handleChange}
           />
-          {/* end of single form row */}
-          <button type="submit" className="btn btn-block" disabled={loading}>
+          <button type="submit" className="button is-small is-primary" disabled={loading}>
             {loading ? "Loading..." : "Login"}
           </button>
           <p>
             Don't have an account?
             <Link to="/register" className="register-link">
-              Register
-            </Link>
-          </p>
-          <p>
-            Forgot your password?{" "}
-            <Link to="/forgot-password" className="reset-link">
-              Reset Password
+              Sign Up
             </Link>
           </p>
         </form>

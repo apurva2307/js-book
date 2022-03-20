@@ -20,9 +20,10 @@ const FormRow: React.FC<FormRowProps> = ({
         type={type}
         value={value}
         name={name}
+        placeholder={name}
         // @ts-ignore
         onChange={handleChange}
-        className="form-input"
+        className="input is-normal"
       />
     </div>
   );
