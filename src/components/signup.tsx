@@ -1,19 +1,19 @@
 import "./styles/login.css";
 import { useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import FormRow from "../components/form-row";
+import FormRow from "./form-row";
 import useLocalState from "../hooks/use-local-state";
 import axios from "axios";
 import { useLastLocation } from 'react-router-last-location';
 
-interface LoginProps {
+interface SignupProps {
   saveUser: (user: { email: string; userId: string }) => void;
   user: { email: string; userId: string } | null;
 }
-const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
+const Signup: React.FC<SignupProps> = ({ saveUser, user }) => {
   // @ts-ignore
-  const lastLocation = useLastLocation()
-  const history = useHistory();
+  const lastLocation = useLastLocation();
+  const history = useHistory()
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -29,9 +29,9 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
     hideAlert();
     setLoading(true);
     const { email, password } = values;
-    const loginUser = { email, password };
+    const registerUser = { email, password };
     try {
-      const { data } = await axios.post("/auth/login", loginUser);
+      const { data } = await axios.post("/auth/register", registerUser);
       localStorage.setItem("jsbook_token", data.token);
       setValues({ email: "", password: "" });
       showAlert({
@@ -39,20 +39,15 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
         type: "success",
       });
       setLoading(false);
-      console.log(data)
       saveUser(data.user);
       // window.location.href = "/"
-      history.push("/");
+      history.push("/")
     } catch (error: any) {
       showAlert({ text: error.response.data.msg });
       setLoading(false);
     }
   };
-  // if (user) {
-  //   // @ts-ignore
-  //   window.location.href = lastLocation.pathname
-  // }
-  // console.log(user)
+  
   return (
     <>
     {user && lastLocation && <Redirect to={lastLocation.pathname} />}
@@ -79,12 +74,12 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
             handleChange={handleChange}
           />
           <button type="submit" className="button is-small is-primary" disabled={loading}>
-            {loading ? "Loading..." : "Login"}
+            {loading ? "Loading..." : "Sign UP"}
           </button>
           <p style={{color: "var(--primary-900)"}}>
-            Don't have an account?
-            <Link to="/signup" className="register-link">
-              Sign Up
+            Already have an account?
+            <Link to="/login" className="register-link">
+              Login
             </Link>
           </p>
         </form>
@@ -93,4 +88,4 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
   );
 };
 
-export default Login;
+export default Signup;

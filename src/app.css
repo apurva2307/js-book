@@ -96,6 +96,7 @@
   display: block;
   margin-bottom: 0.5rem;
   text-transform: capitalize;
+  color: var(--primary-900);
   letter-spacing: var(--letterSpacing);
 }
 .form-input,

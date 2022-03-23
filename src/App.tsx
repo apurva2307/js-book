@@ -11,6 +11,7 @@ import Login from "./components/login";
 import Home from "./components/home";
 import AuthRoute from "./components/auth-route";
 import Navbar from "./components/navbar";
+import Signup from "./components/signup";
 
 interface User {
   email: string;
@@ -59,7 +60,9 @@ function App() {
   };
 
   useEffect( () => {
+    if (!user) {
       fetchUser();
+    }
     // eslint-disable-next-line
   }, []);
   
@@ -72,6 +75,9 @@ function App() {
           <Switch>
             <Route path="/login" exact>
               <Login saveUser={saveUser} user={user} />
+            </Route>
+            <Route path="/signup" exact>
+              <Signup saveUser={saveUser} user={user} />
             </Route>
             <AuthRoute exact path="/editor/:filename" user={user} component={ShellList} />
             <AuthRoute exact path="/" user={user} component={Home} />

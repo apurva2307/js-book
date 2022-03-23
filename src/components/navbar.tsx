@@ -38,6 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
     </div>
     <div className="navbar-start">
         <div className="navbar-item">
+            {user && (
             <div className="buttons">
                 {!newfile &&
                 <button className="button is-primary is-small is-rounded" onClick={() => setNewfile(true)}>
@@ -50,17 +51,20 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
                 </button>
                 </>}
             </div>
+            )}
         </div>
     </div>
     <div className="navbar-end">
-        <div className="navbar-item">
-            {user && <div className="user">{user.email}</div>}
-            <div className="buttons">
-                <button className="button is-primary is-small is-rounded" onClick={() => logoutUser()}>
+        {user &&    (
+            <div className="navbar-item">
+                <div className="user">{user.email}</div>
+                <div className="buttons">
+                    <button className="button is-primary is-small is-rounded" onClick={() => logoutUser()}>
                     Log Out
-                </button>
+                    </button>
+                </div>
             </div>
-        </div>
+        )}
     </div>
     </nav>
     )

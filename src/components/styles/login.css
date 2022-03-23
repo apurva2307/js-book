@@ -38,6 +38,9 @@ p {
   color: var(--primary-500);
   cursor: pointer;
 }
+.register-link:hover {
+  color: var(--primary-300);
+}
 .reset-link {
   margin-top: 0.25rem;
 }
