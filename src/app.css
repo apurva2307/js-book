@@ -149,3 +149,24 @@
   background: rgba(255, 255, 255, 0.6);
   cursor: not-allowed;
 }
+.spinner-7 {
+  width: 50px;
+  height: 50px;
+  --c: radial-gradient(farthest-side, #df691a 92%, #0000);
+  background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%,
+    var(--c) 0 50%;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+  animation: s7 1s infinite;
+  position: absolute;
+  top: 50vh;
+  left: 50%;
+}
+@keyframes s7 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+.main {
+  position: relative;
+}

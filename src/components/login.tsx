@@ -4,7 +4,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import FormRow from "../components/form-row";
 import useLocalState from "../hooks/use-local-state";
 import axios from "axios";
-import { useLastLocation } from 'react-router-last-location';
+import { useLastLocation } from "react-router-last-location";
 
 interface LoginProps {
   saveUser: (user: { email: string; userId: string }) => void;
@@ -12,7 +12,7 @@ interface LoginProps {
 }
 const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
   // @ts-ignore
-  const lastLocation = useLastLocation()
+  const lastLocation = useLastLocation();
   const history = useHistory();
   const [values, setValues] = useState({
     email: "",
@@ -39,7 +39,6 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
         type: "success",
       });
       setLoading(false);
-      console.log(data)
       saveUser(data.user);
       // window.location.href = "/"
       history.push("/");
@@ -55,8 +54,8 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
   // console.log(user)
   return (
     <>
-    {user && lastLocation && <Redirect to={lastLocation.pathname} />}
-    {user && <Redirect to="/" />}
+      {user && lastLocation && <Redirect to={lastLocation.pathname} />}
+      {user && <Redirect to="/" />}
       <section className="page">
         {alert.show && (
           <div className={`alert alert-${alert.type}`}>{alert.text}</div>
@@ -78,10 +77,14 @@ const Login: React.FC<LoginProps> = ({ saveUser, user }) => {
             value={values.password}
             handleChange={handleChange}
           />
-          <button type="submit" className="button is-small is-primary" disabled={loading}>
+          <button
+            type="submit"
+            className="button is-small is-primary"
+            disabled={loading}
+          >
             {loading ? "Loading..." : "Login"}
           </button>
-          <p style={{color: "var(--primary-900)"}}>
+          <p style={{ color: "var(--primary-900)" }}>
             Don't have an account?
             <Link to="/signup" className="register-link">
               Sign Up
