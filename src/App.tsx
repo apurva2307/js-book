@@ -17,8 +17,8 @@ interface User {
   email: string;
   userId: string;
 }
-// axios.defaults.baseURL = "https://common-api.apurvasingh.dev/api/v1";
-axios.defaults.baseURL = "https://common-api.fly.dev/api/v1";
+axios.defaults.baseURL = "https://common-api.apurvasingh.dev/api/v1";
+// axios.defaults.baseURL = "https://common-api.fly.dev/api/v1";
 
 
 function App() {
