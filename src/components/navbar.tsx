@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
         }
     }
     return (
-    <nav className="navbar" role="navigation" aria-label="dropdown navigation">
+    <nav className="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
     <div className="navbar-brand">
         <Link className="navbar-item" to="/">
         <img src={jslogo} alt="logo" width="70" height="140" />
@@ -55,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
         </div>
     </div>
         {user &&    (
-        // <div className="navbar-end">
+        <div className="navbar-end">
                 <div className="navbar-item has-dropdown is-hoverable is-right">
                     <div className="user navbar-link">{user.email}</div>
                     <div className="navbar-dropdown">
@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
                         </div>
                     </div>
                 </div>
-        // </div>
+        </div>
         )}
     </nav>
     )
