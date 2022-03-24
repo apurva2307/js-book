@@ -6,10 +6,8 @@ import ShellListItem from "./shell-list-item";
 import { useActions } from "../hooks/use-actions";
 import { useParams } from "react-router-dom";
 
-interface ShellListProps {
-  setIsLoading: (value: Boolean) => void;
-}
-const ShellList: React.FC<ShellListProps> = ({setIsLoading}) => {
+
+const ShellList: React.FC = () => {
   const { fetchShells } = useActions();
   // @ts-ignore
   const { filename } = useParams();
@@ -22,12 +20,9 @@ const ShellList: React.FC<ShellListProps> = ({setIsLoading}) => {
     } else {
       return [];
     }
-
   });
   useEffect(() => {
-    setIsLoading(true)
     fetchShells(filename!);
-    setIsLoading(false)
     // eslint-disable-next-line
   }, []);
 

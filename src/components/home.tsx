@@ -4,13 +4,10 @@ import { useState, useEffect } from "react";
 import { FaBook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-interface HomeProps {
-  setIsLoading: (value: Boolean) => void;
-}
-const Home: React.FC<HomeProps> = ({setIsLoading}) => {
+
+const Home = () => {
   const [files, setFiles] = useState([]);
   const fetchFiles = async () => {
-    setIsLoading(true)
     try {
       const token = localStorage.getItem("jsbook_token");
       if (token) {
@@ -26,10 +23,8 @@ const Home: React.FC<HomeProps> = ({setIsLoading}) => {
           })
         );
       }
-      setIsLoading(false)
     } catch (error) {
       console.log(error);
-      setIsLoading(false)
     }
   };
   useEffect(() => {

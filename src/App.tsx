@@ -18,8 +18,6 @@ interface User {
   userId: string;
 }
 axios.defaults.baseURL = "https://common-api.apurvasingh.dev/api/v1";
-// axios.defaults.baseURL = "https://common-api.fly.dev/api/v1";
-
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,9 +85,8 @@ function App() {
                   path="/editor/:filename"
                   user={user}
                   component={ShellList}
-                  setIsLoading={setIsLoading}
                 />
-                <AuthRoute exact path="/" user={user} component={Home} setIsLoading={setIsLoading}/>
+                <AuthRoute exact path="/" user={user} component={Home} />
                 <Route path="*">
                   <h1>No page found.</h1>
                 </Route>
