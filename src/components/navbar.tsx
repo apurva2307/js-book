@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
         }
     }
     return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav className="navbar" role="navigation" aria-label="dropdown navigation">
     <div className="navbar-brand">
         <Link className="navbar-item" to="/">
         <img src={jslogo} alt="logo" width="70" height="140" />
@@ -39,33 +39,35 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
     <div className="navbar-start">
         <div className="navbar-item">
             {user && (
-            <div className="buttons">
+            <div className="buttons is-flex-direction-row is-align-items-center">
                 {!newfile &&
                 <button className="button is-primary is-small is-rounded" onClick={() => setNewfile(true)}>
                     New File
                 </button>}
                 {newfile && <>
                 <input type="text" value={filename} onChange={(e) => setFilename(e.target.value)}/>
-                <button className="button is-primary is-small is-rounded" onClick={() => createNewFile()}>
-                    Create
+                <button className="button is-primary is-small is-rounded" style={{marginTop: "0.5rem", marginLeft: "0.5rem"}} onClick={() => createNewFile()}>
+                    {filename ? "Create" : "Cancel"}
                 </button>
                 </>}
             </div>
             )}
         </div>
     </div>
-    <div className="navbar-end">
         {user &&    (
-            <div className="navbar-item">
-                <div className="user">{user.email}</div>
-                <div className="buttons">
-                    <button className="button is-primary is-small is-rounded" onClick={() => logoutUser()}>
-                    Log Out
-                    </button>
+        // <div className="navbar-end">
+                <div className="navbar-item has-dropdown is-hoverable is-right">
+                    <div className="user navbar-link">{user.email}</div>
+                    <div className="navbar-dropdown">
+                        <div className="navbar-item">
+                            <button className="button is-primary is-small is-rounded" onClick={() => logoutUser()}>
+                            Log Out
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+        // </div>
         )}
-    </div>
     </nav>
     )
 }

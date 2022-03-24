@@ -1,0 +1,9 @@
+.my-files {
+  width: 50vw;
+  margin: 0.5rem auto;
+}
+@media screen and (max-width: 768px) {
+  .my-files {
+    width: 100vw;
+  }
+}
