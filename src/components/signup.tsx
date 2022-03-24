@@ -34,13 +34,16 @@ const Signup: React.FC<SignupProps> = ({ saveUser, user }) => {
       const { data } = await axios.post("/auth/register", registerUser);
       localStorage.setItem("jsbook_token", data.token);
       setValues({ email: "", password: "" });
-      showAlert({
-        text: `Welcome, ${data.user.name}. Redirecting to dashboard...`,
-        type: "success",
-      });
+      if (data.user) {
+        showAlert({
+          text: `Welcome, ${data.user.email}. Redirecting to dashboard...`,
+          type: "success",
+        });
+        saveUser(data.user);
+      } else if (data.msg) {
+        showAlert({ text: data.msg });
+      }
       setLoading(false);
-      saveUser(data.user);
-      // window.location.href = "/"
       history.push("/")
     } catch (error: any) {
       showAlert({ text: error.response.data.msg });

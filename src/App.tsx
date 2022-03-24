@@ -86,7 +86,7 @@ function App() {
                   user={user}
                   component={ShellList}
                 />
-                <AuthRoute exact path="/" user={user} component={Home} />
+                <AuthRoute exact path="/" user={user} component={Home} setIsLoading={setIsLoading}/>
                 <Route path="*">
                   <h1>No page found.</h1>
                 </Route>

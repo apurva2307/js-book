@@ -13,6 +13,10 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
     const [filename, setFilename] = useState("");
     const history = useHistory()
     const createNewFile = async() => {
+        if (!filename) {
+            setNewfile(false)
+            return
+        }
         try {
             const token = localStorage.getItem("jsbook_token");
             await axios.post("/shells",{shells: [], name: filename},
@@ -25,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({logoutUser, user}) => {
             history.push(`/editor/${filename}`)
         } catch (error) {
             console.log(error)
+            setNewfile(false)
         }
     }
     return (
