@@ -1,10 +1,14 @@
 import { Route, Redirect } from "react-router-dom";
 
-const AuthRoute = ({ component: Component, user, ...rest }) => (
+const AuthRoute = ({ component: Component, user, setIsLoading, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      !user ? <Redirect to="/login" /> : <Component {...props} {...rest} />
+      !user ? (
+        <Redirect to="/login" />
+      ) : (
+        <Component {...props} setIsLoading={setIsLoading} />
+      )
     }
   />
 );

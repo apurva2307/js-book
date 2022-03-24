@@ -17,7 +17,9 @@ interface User {
   email: string;
   userId: string;
 }
-axios.defaults.baseURL = "https://common-api.apurvasingh.dev/api/v1";
+// axios.defaults.baseURL = "https://common-api.apurvasingh.dev/api/v1";
+axios.defaults.baseURL = "https://common-api.fly.dev/api/v1";
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -85,6 +87,7 @@ function App() {
                   path="/editor/:filename"
                   user={user}
                   component={ShellList}
+                  setIsLoading={setIsLoading}
                 />
                 <AuthRoute exact path="/" user={user} component={Home} setIsLoading={setIsLoading}/>
                 <Route path="*">
